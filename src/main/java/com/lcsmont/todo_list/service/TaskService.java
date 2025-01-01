@@ -37,6 +37,11 @@ public class TaskService {
         return taskRepository.save(taskEntity);
     }
 
+    // Method to delete a task
+    public void delete(Long id) {
+        taskRepository.deleteById(id);
+    }
+
     // Aux method to update a Task
     public void updateData(Task entity, Task task) {
         entity.setTitle(task.getTitle());
