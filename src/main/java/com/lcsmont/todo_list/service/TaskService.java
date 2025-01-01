@@ -29,4 +29,17 @@ public class TaskService {
     public Task insert(Task task) {
         return taskRepository.save(task);
     }
+
+    // Method to edit a task
+    public Task update(Long id, Task task) {
+        Task taskEntity = taskRepository.getReferenceById(id);
+        updateData(taskEntity, task);
+        return taskRepository.save(taskEntity);
+    }
+
+    // Aux method to update a Task
+    public void updateData(Task entity, Task task) {
+        entity.setTitle(task.getTitle());
+        entity.setDescription(task.getDescription());
+    }
 }

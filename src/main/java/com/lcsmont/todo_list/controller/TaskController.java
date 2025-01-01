@@ -35,4 +35,10 @@ public class TaskController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(task.getId()).toUri();
         return ResponseEntity.created(uri).body(task);
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Task> update(@PathVariable Long id, @RequestBody Task task) {
+        Task taskUpdated = taskService.update(id, task);
+        return ResponseEntity.ok().body(taskUpdated);
+    }
 }
