@@ -24,4 +24,9 @@ public class TaskService {
         Optional<Task> task = taskRepository.findById(id);
         return task.orElse(null);
     }
+
+    // Method to add a new task
+    public Task insert(Task task) {
+        return taskRepository.save(task);
+    }
 }

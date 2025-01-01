@@ -4,11 +4,10 @@ import com.lcsmont.todo_list.model.Task;
 import com.lcsmont.todo_list.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -28,5 +27,12 @@ public class TaskController {
     public ResponseEntity<Task> findById(@PathVariable Long id) {
         Task task = taskService.findById(id);
         return ResponseEntity.ok().body(task);
+    }
+
+    @PostMapping
+    public ResponseEntity<Task> insert(@RequestBody Task task) {
+        task = taskService.insert(task);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(task.getId()).toUri();
+        return ResponseEntity.created(uri).body(task);
     }
 }
