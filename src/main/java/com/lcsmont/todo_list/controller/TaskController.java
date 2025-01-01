@@ -47,4 +47,10 @@ public class TaskController {
         taskService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/toggle/{id}")
+    public String toggleTaskCompletion(@PathVariable Long id) {
+        taskService.toggleTaskCompletion(id);
+        return "redirect:/tasks";
+    }
 }

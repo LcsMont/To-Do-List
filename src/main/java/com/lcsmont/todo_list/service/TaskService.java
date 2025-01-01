@@ -42,6 +42,14 @@ public class TaskService {
         taskRepository.deleteById(id);
     }
 
+    // Method to Mark a task as complete/incomplete
+    public void toggleTaskCompletion(Long id) {
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Task not found"));
+        task.setDone(!task.isDone());
+        taskRepository.save(task);
+    }
+
     // Aux method to update a Task
     public void updateData(Task entity, Task task) {
         entity.setTitle(task.getTitle());
