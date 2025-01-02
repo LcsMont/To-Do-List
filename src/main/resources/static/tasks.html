@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h1>To-Do List</h1>
+
+    <form action="/tasks" method="post">
+        <label>
+            <input type="text" name="title" placeholder="New Task" required />
+        </label>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <ul>
+        <li th:each="task : ${tasks}">
+            <span th:text="${task.name}"
+                  th:style="${task.completed} ? 'text-decoration: line-through;' : ''"></span>
+            <form th:action="@{/tasks/toggle/{id}(id=${task.id})}" method="post" style="display:inline;">
+                <button type="submit" th:text="${task.completed} ? 'Mark as Incomplete' : 'Mark as Complete'"></button>
+            </form>
+            <form th:action="@{/tasks/delete/{id}(id=${task.id})}" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+    </ul>
+
+<script src="js/script.js">
+    fetchTasks(); // Carrega as tarefas ao abrir a página
+</script>
+</body>
+</html>
